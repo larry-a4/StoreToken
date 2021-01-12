@@ -2,6 +2,14 @@
 
 A basic implementation of the buyer and seller contracts
 
+# Assumption and Design
+
+The seller can post any item for sale, as long as the item name is unique.
+
+Anyone can then query an item by its name, and get its price and seller.
+
+The buyer can order any item by its name, if they have enough balance in their account. Note: the buyer can order multiple instances of the same item.
+
 You need `npm` to use the development environment.
 
 ## Setup
