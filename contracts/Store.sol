@@ -11,6 +11,8 @@ contract Store {
 
     event LogOffer(bytes32 item, uint price);
     event LogOrder(bytes32 item);
+    event LogComplain(bytes32 item);
+    event LogComplete(bytes32 item);
 
     constructor(
         address tokenContractAddress
@@ -39,17 +41,21 @@ contract Store {
 
     function complain(bytes32 item) public {
         require(priceOf[item] > 0, "item does not exist");
-        require(quantityOrdered[msg.sender][item] > 0, "you did not order this item");
+        require(quantityOrdered[msg.sender][item] > 0, "buyer did not order this item");
 
         tokenContract.transferFrom(address(this), msg.sender, priceOf[item]);
         quantityOrdered[msg.sender][item] -= 1;
+
+        emit LogComplain(item);      
     }
 
     function complete(bytes32 item) public {
         require(priceOf[item] > 0, "item does not exist");
-        require(quantityOrdered[msg.sender][item] > 0, "you did not order this item");
+        require(quantityOrdered[msg.sender][item] > 0, "buyer did not order this item");
 
         tokenContract.transferFrom(address(this), sellerOf[item], priceOf[item]);
         quantityOrdered[msg.sender][item] -= 1;
+
+        emit LogComplete(item);
     }
 }
