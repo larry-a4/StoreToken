@@ -46,7 +46,7 @@ contract Store {
         tokenContract.transferFrom(address(this), msg.sender, priceOf[item]);
         quantityOrdered[msg.sender][item] -= 1;
 
-        emit LogComplain(item);(item);        
+        emit LogComplain(item);      
     }
 
     function complete(bytes32 item) public {
